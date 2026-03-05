@@ -1,0 +1,10 @@
+# Don't commit customer data
+data/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# n8n local state
+n8n_data/

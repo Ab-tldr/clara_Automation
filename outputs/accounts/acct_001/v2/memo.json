@@ -1,0 +1,74 @@
+{
+  "account_id": "acct_001",
+  "company_name": "",
+  "business_hours": {
+    "days": [
+      "Mon",
+      "Fri"
+    ],
+    "start": "",
+    "end": "",
+    "timezone": ""
+  },
+  "office_address": "17119 Sundown Road, Southeast Calgary, Alberta",
+  "services_supported": [
+    "today is because we saw AI taking over the world"
+  ],
+  "emergency_definition": [
+    "calls",
+    "um",
+    "except for",
+    "you know",
+    "our existing builders and",
+    "uh",
+    "I've got one property manager",
+    "that sometimes they've got some",
+    "they've got gas stations that are running 24 seven",
+    "after hours",
+    "then you can patch it through to",
+    "Oh",
+    "okay"
+  ],
+  "emergency_routing_rules": {
+    "routing_order": [],
+    "primary_destination": "",
+    "fallback_destination": "",
+    "notes": ""
+  },
+  "non_emergency_routing_rules": {
+    "office_hours": "",
+    "after_hours": "",
+    "notes": ""
+  },
+  "call_transfer_rules": {
+    "transfer_timeout_seconds": null,
+    "max_retries": null,
+    "retry_delay_seconds": null,
+    "transfer_fail_script": ""
+  },
+  "integration_constraints": [
+    "going to be a missed call, ever",
+    "know"
+  ],
+  "after_hours_flow_summary": "",
+  "office_hours_flow_summary": "",
+  "questions_or_unknowns": [
+    "company_name missing",
+    "timezone missing",
+    "after_hours routing not specified",
+    "transfer timeout/retry/fallback not confirmed (unless explicitly stated)"
+  ],
+  "notes": "",
+  "version": "v2",
+  "sources": {
+    "stage": "demo",
+    "source_file": "data/demo/acct_001_demo.txt",
+    "input_hash": "5d88ad9d300ed40873ffd86f3613053bd935a0b5e249812a93094cbe47e0f602",
+    "onboarding_source_file": "data/onboarding/acct_001_onboarding.txt",
+    "onboarding_input_hash": "943eb20736003f89dd49773799c85f97b90dbbaa794ce70130880fbb2af07c1c"
+  },
+  "meta": {
+    "generated_at": "2026-03-05T00:16:38+00:00",
+    "updated_at": "2026-03-05T00:16:39+00:00"
+  }
+}

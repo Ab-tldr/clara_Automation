@@ -1,0 +1,28 @@
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_PERSONALIZATION_ENABLED=false
+      - N8N_ENCRYPTION_KEY=local-dev-key
+      - N8N_ENABLE_COMMANDS=true
+      - NODES_EXCLUDE=[]
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+      - ./:/workspace
+    working_dir: /workspace
+  runner:
+    build:
+      context: .
+      dockerfile: runner/Dockerfile
+    environment:
+      - REPO_ROOT=/workspace
+    volumes:
+      - ./:/workspace
+    ports:
+      - "8000:8000"

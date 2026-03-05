@@ -1,0 +1,117 @@
+{
+  "name": "batch_workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        -32
+      ],
+      "id": "4bc97fe8-9d47-4d39-b9be-709c7061d8cc",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://runner:8000/run",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"demo_dir\": \"data/demo\",\n  \"onboarding_dir\": \"data/onboarding\",\n  \"outputs_dir\": \"outputs\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        0,
+        -32
+      ],
+      "id": "81c3c9b9-389c-46a3-9e93-5cc7374abf09",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e178e59e-de7b-4d44-b738-4977b8ba66ab",
+              "name": "status",
+              "value": "completed",
+              "type": "string"
+            },
+            {
+              "id": "83e2f449-7ff4-420f-8b85-c389e4c0429e",
+              "name": "pipeline",
+              "value": "clara_agent_generation",
+              "type": "string"
+            },
+            {
+              "id": "905aa58a-f0db-44e9-bfdd-2d0afe03b43b",
+              "name": "outputs_location",
+              "value": "outputs/accounts",
+              "type": "string"
+            },
+            {
+              "id": "26247c96-5197-4b51-b40b-a33520f58d57",
+              "name": "run_log",
+              "value": "outputs/run_log.jsonl",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        -32
+      ],
+      "id": "69a9f157-5047-4898-bf92-2cdd6757bb31",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "2321b67c-9090-44fc-bb85-d3041d7ffc03",
+  "meta": {
+    "instanceId": "f39b414676f47015e1fd88c59ffa2f7cccce458a021c90dc5ea66c9f272b34cd"
+  },
+  "id": "08hbJHmsjVPr2n3A",
+  "tags": []
+}

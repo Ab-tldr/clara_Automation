@@ -1,0 +1,31 @@
+{
+  "business_hours": {
+    "days": [
+      "Mon",
+      "Fri"
+    ],
+    "start": "",
+    "end": "",
+    "timezone": ""
+  },
+  "emergency_definition": [
+    "calls",
+    "um",
+    "except for",
+    "you know",
+    "our existing builders and",
+    "uh",
+    "I've got one property manager",
+    "that sometimes they've got some",
+    "they've got gas stations that are running 24 seven",
+    "after hours",
+    "then you can patch it through to",
+    "Oh",
+    "okay"
+  ],
+  "_meta": {
+    "input_hash": "943eb20736003f89dd49773799c85f97b90dbbaa794ce70130880fbb2af07c1c",
+    "source_file": "data/onboarding/acct_005_onboarding.txt",
+    "generated_at": "2026-03-05T00:16:41+00:00"
+  }
+}

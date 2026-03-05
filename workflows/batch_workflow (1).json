@@ -1,0 +1,211 @@
+{
+  "name": "batch_workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        -32
+      ],
+      "id": "4bc97fe8-9d47-4d39-b9be-709c7061d8cc",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b41addd6-34e7-4d20-9e40-915cfd4b6b19",
+              "leftValue": "={{$json[\"returncode\"]}}",
+              "rightValue": "0",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        144,
+        -32
+      ],
+      "id": "5c178893-4191-495e-99a8-7d51a32f817c",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e178e59e-de7b-4d44-b738-4977b8ba66ab",
+              "name": "status",
+              "value": "completed",
+              "type": "string"
+            },
+            {
+              "id": "83e2f449-7ff4-420f-8b85-c389e4c0429e",
+              "name": "pipeline",
+              "value": "clara_agent_generation",
+              "type": "string"
+            },
+            {
+              "id": "905aa58a-f0db-44e9-bfdd-2d0afe03b43b",
+              "name": "outputs_location",
+              "value": "outputs/accounts",
+              "type": "string"
+            },
+            {
+              "id": "26247c96-5197-4b51-b40b-a33520f58d57",
+              "name": "run_log",
+              "value": "outputs/run_log.jsonl",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        384,
+        -144
+      ],
+      "id": "69a9f157-5047-4898-bf92-2cdd6757bb31",
+      "name": "Sucess"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e178e59e-de7b-4d44-b738-4977b8ba66ab",
+              "name": "status",
+              "value": "failed",
+              "type": "string"
+            },
+            {
+              "id": "83e2f449-7ff4-420f-8b85-c389e4c0429e",
+              "name": "error",
+              "value": "{{$json[\"stderr\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "905aa58a-f0db-44e9-bfdd-2d0afe03b43b",
+              "name": "returncode",
+              "value": "{{$json[\"returncode\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "26247c96-5197-4b51-b40b-a33520f58d57",
+              "name": "command",
+              "value": "{{$json[\"ran\"]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        384,
+        16
+      ],
+      "id": "6e8d5624-039a-44c7-8c91-63dc3b02b44d",
+      "name": "Failure"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://runner:8000/run",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"demo_dir\": \"data/demo\",\n  \"onboarding_dir\": \"data/onboarding\",\n  \"outputs_dir\": \"outputs\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        0,
+        -32
+      ],
+      "id": "81c3c9b9-389c-46a3-9e93-5cc7374abf09",
+      "name": "HTTP Request Runner to run python scripts"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request Runner to run python scripts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Sucess",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sucess": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request Runner to run python scripts": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "9fd539c8-39c0-4cef-a291-9f84b2a724d0",
+  "meta": {
+    "instanceId": "f39b414676f47015e1fd88c59ffa2f7cccce458a021c90dc5ea66c9f272b34cd"
+  },
+  "id": "08hbJHmsjVPr2n3A",
+  "tags": []
+}

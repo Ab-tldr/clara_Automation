@@ -1,0 +1,34 @@
+[
+  {
+    "op": "replace",
+    "path": "/business_hours",
+    "value": {
+      "days": [
+        "Mon",
+        "Fri"
+      ],
+      "start": "",
+      "end": "",
+      "timezone": ""
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/emergency_definition",
+    "value": [
+      "calls",
+      "um",
+      "except for",
+      "you know",
+      "our existing builders and",
+      "uh",
+      "I've got one property manager",
+      "that sometimes they've got some",
+      "they've got gas stations that are running 24 seven",
+      "after hours",
+      "then you can patch it through to",
+      "Oh",
+      "okay"
+    ]
+  }
+]

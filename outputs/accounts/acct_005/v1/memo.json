@@ -1,0 +1,63 @@
+{
+  "account_id": "acct_005",
+  "company_name": "",
+  "business_hours": {
+    "days": [],
+    "start": "",
+    "end": "",
+    "timezone": ""
+  },
+  "office_address": "17119 Sundown Road, Southeast Calgary, Alberta",
+  "services_supported": [
+    "today is because we saw AI taking over the world"
+  ],
+  "emergency_definition": [
+    "services except for some of our regular property managers",
+    "general contractors",
+    "for them",
+    "on the weekend",
+    "I'll defer them elsewhere",
+    "it was an inquiry",
+    "Clara doesn't",
+    "as well"
+  ],
+  "emergency_routing_rules": {
+    "routing_order": [],
+    "primary_destination": "",
+    "fallback_destination": "",
+    "notes": ""
+  },
+  "non_emergency_routing_rules": {
+    "office_hours": "",
+    "after_hours": "",
+    "notes": ""
+  },
+  "call_transfer_rules": {
+    "transfer_timeout_seconds": null,
+    "max_retries": null,
+    "retry_delay_seconds": null,
+    "transfer_fail_script": ""
+  },
+  "integration_constraints": [
+    "going to be a missed call, ever",
+    "know"
+  ],
+  "after_hours_flow_summary": "",
+  "office_hours_flow_summary": "",
+  "questions_or_unknowns": [
+    "company_name missing",
+    "timezone missing",
+    "after_hours routing not specified",
+    "transfer timeout/retry/fallback not confirmed (unless explicitly stated)"
+  ],
+  "notes": "",
+  "version": "v1",
+  "sources": {
+    "stage": "demo",
+    "source_file": "data/demo/acct_005_demo.txt",
+    "input_hash": "5d88ad9d300ed40873ffd86f3613053bd935a0b5e249812a93094cbe47e0f602"
+  },
+  "meta": {
+    "generated_at": "2026-03-05T00:16:39+00:00"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "account_id": "acct_004",
+  "from_version": "v1",
+  "to_version": "v2",
+  "changes": [
+    {
+      "field": "business_hours",
+      "old": {
+        "days": [],
+        "start": "",
+        "end": "",
+        "timezone": ""
+      },
+      "new": {
+        "days": [
+          "Mon",
+          "Fri"
+        ],
+        "start": "",
+        "end": "",
+        "timezone": ""
+      },
+      "reason": "Confirmed on onboarding input."
+    },
+    {
+      "field": "emergency_definition",
+      "old": [
+        "services except for some of our regular property managers",
+        "general contractors",
+        "for them",
+        "on the weekend",
+        "I'll defer them elsewhere",
+        "it was an inquiry",
+        "Clara doesn't",
+        "as well"
+      ],
+      "new": [
+        "calls",
+        "um",
+        "except for",
+        "you know",
+        "our existing builders and",
+        "uh",
+        "I've got one property manager",
+        "that sometimes they've got some",
+        "they've got gas stations that are running 24 seven",
+        "after hours",
+        "then you can patch it through to",
+        "Oh",
+        "okay"
+      ],
+      "reason": "Confirmed on onboarding input."
+    }
+  ],
+  "conflicts_resolved": [],
+  "timestamp": "2026-03-05T00:16:41+00:00"
+}

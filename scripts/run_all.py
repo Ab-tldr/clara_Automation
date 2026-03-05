@@ -17,7 +17,6 @@ from utils import (
 )
 
 def _py(cmd: List[str]) -> str:
-    # run python module/script and capture stdout
     p = subprocess.run(cmd, capture_output=True, text=True)
     if p.returncode != 0:
         raise RuntimeError(f"Command failed: {' '.join(cmd)}\nSTDERR:\n{p.stderr}")
@@ -35,9 +34,7 @@ def main():
     run_log = os.path.join(outputs_dir, "run_log.jsonl")
     ensure_dir(outputs_dir)
 
-    # ----------------------------
-    # Pipeline A: demo -> v1
-    # ----------------------------
+
     demo_files = sorted(glob.glob(os.path.join(args.demo_dir, "*.txt")))
     for fpath in demo_files:
         account_id = extract_account_id(os.path.basename(fpath))
@@ -50,25 +47,20 @@ def main():
         v1_dir = os.path.join(acct_root, "v1")
         ensure_dir(v1_dir)
 
-        # Extract v1 memo (demo)
         memo_stdout = _py(["python", "scripts/extract_memo.py", "--input", fpath, "--stage", "demo"])
-        memo = eval(memo_stdout) if memo_stdout.startswith("{") else json.loads(memo_stdout)  # safe enough for our prints
+        memo = eval(memo_stdout) if memo_stdout.startswith("{") else json.loads(memo_stdout)  
         v1_memo_path = os.path.join(v1_dir, "memo.json")
         write_json(v1_memo_path, memo)
 
-        # Agent spec v1
         v1_agent_path = os.path.join(v1_dir, "agent_spec.json")
         _py(["python", "scripts/generate_agent_spec.py", "--memo_path", v1_memo_path, "--out_path", v1_agent_path, "--version", "v1"])
 
-        # Source metadata
         source = {"stage": "demo", "file": fpath, "input_hash": h, "generated_at": now_iso()}
         write_json(os.path.join(v1_dir, "source.json"), source)
 
         append_jsonl(run_log, {**key, "status": "ok", "ts": now_iso()})
 
-    # ----------------------------
-    # Pipeline B: onboarding -> v2
-    # ----------------------------
+  
     onboarding_files = sorted(glob.glob(os.path.join(args.onboarding_dir, "*.txt")))
     for fpath in onboarding_files:
         account_id = extract_account_id(os.path.basename(fpath))
@@ -86,14 +78,12 @@ def main():
         v2_dir = os.path.join(acct_root, "v2")
         ensure_dir(v2_dir)
 
-        # Extract onboarding updates (partial dict)
         updates_stdout = _py(["python", "scripts/extract_memo.py", "--input", fpath, "--stage", "onboarding"])
         updates = eval(updates_stdout) if updates_stdout.startswith("{") else json.loads(updates_stdout)
 
         updates_path = os.path.join(acct_root, "onboarding_updates.json")
         write_json(updates_path, updates)
 
-        # Build v2 via patch + changelog
         patch_path = os.path.join(acct_root, "patch.json")
         changelog_path = os.path.join(acct_root, "changelog.json")
         v2_memo_path = os.path.join(v2_dir, "memo.json")
@@ -107,11 +97,9 @@ def main():
             "--out_changelog", changelog_path
         ])
 
-        # Agent spec v2
         v2_agent_path = os.path.join(v2_dir, "agent_spec.json")
         _py(["python", "scripts/generate_agent_spec.py", "--memo_path", v2_memo_path, "--out_path", v2_agent_path, "--version", "v2"])
 
-        # Source metadata
         source = {"stage": "onboarding", "file": fpath, "input_hash": h, "generated_at": now_iso()}
         write_json(os.path.join(v2_dir, "source.json"), source)
 
